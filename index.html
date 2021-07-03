@@ -16,9 +16,22 @@
 			/>
 			<h1>{{firstName}} {{lastName}}</h1>
 			<h3>Email: {{email}}</h3>
+
 			<button :class="gender" @click="getUser()">Get Random User</button>
+			RUB <input type="text" id="rub">
+			USD <input type="text" id="usd">
+
+			<form action="" method="post">
+
+  				<input id="POST-name" type="text" name="test">
+				<input type="submit">
+  				
+			</form>
 		</div>
 
+		
+			
+		</div>
 		<script src="https://unpkg.com/vue@next"></script>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
