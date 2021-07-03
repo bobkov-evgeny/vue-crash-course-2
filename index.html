@@ -18,16 +18,23 @@
 			<h3>Email: {{email}}</h3>
 
 			<button :class="gender" @click="getUser()">Get Random User</button>
-			RUB <input type="text" id="rub">
-			USD <input type="text" id="usd">
 
-			<form action="" method="post">
+			<div class="rubusd">
+				RUB: <input type="text" id="rub">
+				USD: <input type="text" id="usd">
+			</div>
 
+			<form class="form-test" action="" method="post">
+				<label for="test">Тестовое окно для отправки данных на сервер</label>
   				<input id="POST-name" type="text" name="test">
 				<input type="submit">
   				
 			</form>
+
+			
 		</div>
+
+		
 
 		
 			

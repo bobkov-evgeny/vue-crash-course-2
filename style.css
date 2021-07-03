@@ -60,3 +60,17 @@ button:focus {
 button:hover {
 	transform: scale(0.98);
 }
+
+.rubusd {
+	display: flex;
+	align-content: center;
+	flex-direction: column;
+	margin-top: 25px;
+}
+
+.form-test {
+	display: flex;
+	align-content: center;
+	flex-direction: column;
+	margin-top: 25px;
+}
