@@ -63,76 +63,91 @@ function postData(form) {
 		statusMessage.textContent = message.loading;
 		form.append(statusMessage);
 
-		const request = new XMLHttpRequest();
-		request.open("POST", "server.php");
-
-		request.setRequestHeader("Content-type", "application/json");
+		// request.setRequestHeader("Content-type", "application/json");
 		const formData = new FormData(form);
+
 		const object = {};
 		formData.forEach((value, key) => (object[key] = value));
-		const json = JSON.stringify(object);
 
-		request.send(json);
-		request.addEventListener("load", () => {
-			if (request.status === 200) {
-				console.log(request.response);
+		fetch("server.php", {
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify(object),
+		})
+			.then((data) => data.text())
+			.then((data) => {
+				console.log(data);
+
 				statusMessage.textContent = message.success;
-				form.reset();
+
 				setTimeout(() => {
 					statusMessage.remove();
 				}, 2000);
-			} else {
+			})
+			.catch((err) => {
 				statusMessage.textContent = message.failure;
-			}
-		});
+			})
+			.finally(() => form.reset());
 	});
 }
 postData(form);
 
 ///////////////////////////////////////////////////////
 
-console.log("Запрос данных...");
-const req = new Promise(function (resolve, reject) {
-	setTimeout(() => {
-		console.log("Подготовка данных...");
+// console.log("Запрос данных...");
+// const req = new Promise(function (resolve, reject) {
+// 	setTimeout(() => {
+// 		console.log("Подготовка данных...");
 
-		const product = {
-			name: "TV",
-			price: 2000,
-		};
+// 		const product = {
+// 			name: "TV",
+// 			price: 2000,
+// 		};
 
-		resolve(product);
-	}, 2000);
-});
+// 		resolve(product);
+// 	}, 2000);
+// });
 
-req
-	.then((product) => {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				product.status = "oreder";
-				resolve(product);
-			}, 2000);
-		})
-			.then((data) => {
-				data.modify = true;
-				return data;
-			})
-			.then((data) => console.log(data));
-	})
-	.catch((err) => console.error("Произошла ошибка"))
-	.finally(() => {
-		setTimeout(() => {
-			console.log("Запрос данных завершен");
-		}, 1000);
-	});
+// req
+// 	.then((product) => {
+// 		return new Promise((resolve, reject) => {
+// 			setTimeout(() => {
+// 				product.status = "oreder";
+// 				resolve(product);
+// 			}, 2000);
+// 		})
+// 			.then((data) => {
+// 				data.modify = true;
+// 				return data;
+// 			})
+// 			.then((data) => console.log(data));
+// 	})
+// 	.catch((err) => console.error("Произошла ошибка"))
+// 	.finally(() => {
+// 		setTimeout(() => {
+// 			console.log("Запрос данных завершен");
+// 		}, 1000);
+// 	});
 
-const test = (time) => {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			console.log(`test ${time}ms`);
-			resolve();
-		}, time);
-	});
-};
+// const test = (time) => {
+// 	return new Promise((resolve) => {
+// 		setTimeout(() => {
+// 			console.log(`test ${time}ms`);
+// 			resolve();
+// 		}, time);
+// 	});
+// };
 
-Promise.race([test(1000), test(2000)]).then(() => console.log("Done"));
+// Promise.race([test(1000), test(2000)]).then(() => console.log("Done"));
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+	method: "POST",
+	body: JSON.stringify({ name: "Alex", fullName: "Alex Bobkov" }),
+	headers: {
+		"Content-type": "application/json",
+	},
+})
+	.then((response) => response.json())
+	.then((json) => console.log(json));
